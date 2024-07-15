@@ -1,56 +1,60 @@
-import styled from "styled-components";
+import React from 'react';
+import styled from 'styled-components';
 
 const Navbar = styled.div`
   display: flex;
-  flex-direction: row;
-  font-size: 10px;
-  background-color: #1606c7;
-  padding-top: 10px;
-  padding-bottom: 8px;
-  padding-left: 3cqmin;
+  justify-content: space-between; /* Align items to the left and right */
+  align-items: center; /* Center items vertically */
+  font-size: 16px;
+  background-color: #067ac7;
+  padding: 10px 20px; /* Adjusted padding */
 `;
 
 const NavList = styled.ul`
   display: flex;
-  flex-direction: row;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
 `;
 
 const NavItem = styled.li`
-  font-size: 20px;
-  padding-right: 50px;
-  overflow: auto;
+  margin-left: 20px; /* Adjusted margin */
 `;
 
 const NavLink = styled.a`
   text-decoration: none;
-  padding-top: 9px;
-  color: black;
+  color: white;
   font-weight: 700;
-  align-content: center;
+  padding: 10px;
 
-  &:link {
-    text-decoration: none;
+  &:hover {
+    text-decoration: underline;
   }
 `;
 
-const Navigation = styled.nav`
-  display: flex;
+const Logo = styled.a`
+  text-decoration: none;
+  color: white;
+  font-weight: 700;
 `;
 
-export default function Nav() {
-
+const Nav = () => {
   return (
-    <>
-      <div className="navbar">
-        <nav>
-          <ul>
-              <a href={`/`}>Logo</a>
-              <a href={`/loginpage`}>로그인</a>
-              <a href={`/signup`}>회원가입</a>
-              <a href={`/detailedpage`}>상세페이지</a>
-          </ul>
-        </nav>
-      </div>
-    </>
+    <Navbar>
+      <Logo href="/">Logo</Logo>
+      <NavList>
+        <NavItem>
+          <NavLink href="/loginpage">로그인</NavLink>
+        </NavItem>
+        <NavItem>
+          <NavLink href="/signup">회원가입</NavLink>
+        </NavItem>
+        <NavItem>
+          <NavLink href="/detailedpage">상세페이지</NavLink>
+        </NavItem>
+      </NavList>
+    </Navbar>
   );
-}
+};
+
+export default Nav;
