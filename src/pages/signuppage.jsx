@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
 import styled from 'styled-components';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
@@ -27,10 +27,11 @@ const Input = styled.input`
 `;
 
 const SignUpButton = styled.div`
-  margin-top: 50px;
+  margin-top: 20px;
 
   button {
     padding: 10px 20px;
+    width: 30%;
     background-color: #067ac7;
     color: white;
     border: none;
@@ -41,6 +42,22 @@ const SignUpButton = styled.div`
     &:hover {
       background-color: #1b4a7d;
     }
+  }
+`;
+
+const BackButton = styled.button`
+  margin-top: 20px;
+  background: none;
+  border: 1px solid #067ac7;
+  color: #067ac7;
+  padding: 8px 16px;
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: 14px;
+
+  &:hover {
+    background-color: #067ac7;
+    color: white;
   }
 `;
 
@@ -58,7 +75,7 @@ const Signuppage = () => {
 
   const handleSignUp = async () => {
     if (password !== confirmPassword) {
-      setMessage('Passwords do not match.');
+      setMessage('비밀번호가 일치하지 않습니다.');
       return;
     }
 
@@ -79,19 +96,26 @@ const Signuppage = () => {
     }
   };
 
+  const goBack = () => {
+    window.history.back();
+  };
+
   return (
-      <SignUp>
-        <SignUpSetting>
-          <h2>Sign Up</h2>
+    <SignUp>
+      <SignUpSetting>
+        <h2>Sign Up</h2>
+        <div className='input-group'>
           <Input
-            type="text"
-            placeholder="Username"
-            value={id}
-            onChange={(e) => setId(e.target.value)}
+              type="text"
+              placeholder="Username"
+              value={id}
+              onChange={(e) => setId(e.target.value)}
           />
+        </div>
+        <div className='input-group'>
           <Input
-            type='password'
-            placeholder='Password'
+            type="password"
+            placeholder="Password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
@@ -101,13 +125,15 @@ const Signuppage = () => {
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
           />
-          <SignUpButton>
-            <button onClick={handleSignUp}>Sign Up</button>
-          </SignUpButton>
-          {message && <ErrorMessage>{message}</ErrorMessage>}
-        </SignUpSetting>
-      </SignUp>
-  )
+        </div>
+        <SignUpButton>
+          <button onClick={handleSignUp}>Sign Up</button>
+        </SignUpButton>
+        <BackButton onClick={goBack}>Previous</BackButton>
+        {message && <ErrorMessage>{message}</ErrorMessage>}
+      </SignUpSetting>
+    </SignUp>
+  );
 }
 
-export default Signuppage
+export default Signuppage;

@@ -31,6 +31,7 @@ const LoginButton = styled.div`
 
   button {
     padding: 10px 20px;
+    width: 30%;
     background-color: #067ac7;
     color: white;
     border: none;
@@ -55,6 +56,22 @@ const SignUpLink = styled.button`
 
   &:hover {
     text-decoration: underline;
+  }
+`;
+
+const BackButton = styled.button`
+  margin-top: 20px;
+  background: none;
+  border: 1px solid #067ac7;
+  color: #067ac7;
+  padding: 8px 16px;
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: 14px;
+
+  &:hover {
+    background-color: #067ac7;
+    color: white;
   }
 `;
 
@@ -91,32 +108,37 @@ const Loginpage = () => {
     navigate('/signup');
   };
 
+  const goBack = () => {
+    window.history.back(); // Go back to the previous page
+  };
+
   return (
-      <Login>
-        <LoginSetting>
-          <h2>Login</h2>
-          <Input
-            type='text'
-            placeholder="Username"
-            value={id}
-            onChange={(e) => setId(e.target.value)}
-          />
-          <Input
-            type='password'
-            placeholder='Password'
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-          <div>
-            <SignUpLink onClick={goToSignup}>Sign Up</SignUpLink>
-          </div>
-          <LoginButton>
-            <button onClick={handleLogin}>Login</button>
-          </LoginButton>
-          {message && <ErrorMessage>{message}</ErrorMessage>}
-        </LoginSetting>
-      </Login>
+    <Login>
+      <LoginSetting>
+        <h2>Login</h2>
+        <Input
+          type='text'
+          placeholder="Username"
+          value={id}
+          onChange={(e) => setId(e.target.value)}
+        />
+        <Input
+          type='password'
+          placeholder='Password'
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+        <div>
+          <SignUpLink onClick={goToSignup}>Sign Up</SignUpLink>
+        </div>
+        <LoginButton>
+          <button onClick={handleLogin}>Login</button>
+        </LoginButton>
+        <BackButton onClick={goBack}>Previous</BackButton>
+        {message && <ErrorMessage>{message}</ErrorMessage>}
+      </LoginSetting>
+    </Login>
   )
 }
 
-export default Loginpage
+export default Loginpage;
