@@ -45,8 +45,9 @@ export default function Nav() {
         <nav>
           <ul>
               <a href={`/`}>Logo</a>
-              <a href={`/login`}>로그인</a>
-              <a href={`/signin`}>회원가입</a>
+              <a href={`/loginpage`}>로그인</a>
+              <a href={`/signup`}>회원가입</a>
+              <a href={`/detailedpage`}>상세페이지</a>
           </ul>
         </nav>
       </div>
