@@ -4,11 +4,28 @@ import {
   createBrowserRouter,
   RouterProvider,
 } from "react-router-dom";
+import Nav from "./components/nav";
+import Homepage from "./pages/homepage";
+import Signuppage from "./pages/signuppage";
+import Loginpage from "./pages/loginpage";
+import Detailedpage from "./pages/detailedpage";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <div>Hello world!</div>,
+    element:<Homepage/>
+  }, 
+  {
+    path: "/signup",
+    element:<Signuppage/>
+  },
+  {
+    path: "/loginpage",
+    element:<Loginpage/>
+  },
+  {
+    path: "/detailedpage",
+    element:<Detailedpage/>
   },
 ]);
 
