@@ -17,7 +17,7 @@ const router = createBrowserRouter([
     element:<Homepage/>  
   }, 
   {
-    path: "/signup",
+    path: "/signuppage",
     element:<Signuppage/>
   },
   {
@@ -28,6 +28,10 @@ const router = createBrowserRouter([
     path: "/movie/:movieid",
     element:<Detailedpage/>
   },
+  {
+    path: "/errorpage",
+    element:<ErrorPage/>
+  }
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
