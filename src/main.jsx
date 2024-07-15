@@ -9,14 +9,15 @@ import Homepage from "./pages/homepage";
 import Signuppage from "./pages/signuppage";
 import Loginpage from "./pages/loginpage";
 import Detailedpage from "./pages/detailedpage";
+import ErrorPage from "./pages/error";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element:<Homepage/>
+    element:<Homepage/>  
   }, 
   {
-    path: "/signup",
+    path: "/signuppage",
     element:<Signuppage/>
   },
   {
@@ -24,9 +25,13 @@ const router = createBrowserRouter([
     element:<Loginpage/>
   },
   {
-    path: "/detailedpage",
+    path: "/movie/:movieid",
     element:<Detailedpage/>
   },
+  {
+    path: "/errorpage",
+    element:<ErrorPage/>
+  }
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(

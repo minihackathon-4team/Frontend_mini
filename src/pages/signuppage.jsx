@@ -31,7 +31,7 @@ const SignUpButton = styled.div`
 
   button {
     padding: 10px 20px;
-    width: 30%;
+    width: 70%;
     background-color: #067ac7;
     color: white;
     border: none;
@@ -53,6 +53,7 @@ const BackButton = styled.button`
   padding: 8px 16px;
   border-radius: 3px;
   cursor: pointer;
+  width:70%;
   font-size: 14px;
 
   &:hover {
