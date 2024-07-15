@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
-import Comments from '../components/comments';
 import { useParams } from 'react-router-dom';
 
 export default function Detailedpage() {
