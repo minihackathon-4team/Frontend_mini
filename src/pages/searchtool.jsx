@@ -5,11 +5,14 @@ const SearchContainer = styled.div`
   display: flex;
   justify-content: center;
   margin: 20px;
+  margin-top: 100px;
+  margin-bottom:100px;
+  height: 50px;
 `;
 
 const SearchInput = styled.input`
-  padding: 10px;
-  font-size: 16px;
+  padding: 5px;
+  font-size: 27px;
   border: 1px solid #ccc;
   border-radius: 4px;
   width: 50%;
@@ -18,6 +21,7 @@ const SearchInput = styled.input`
 const SearchButton = styled.button`
   padding: 10px 15px;
   margin-left: 10px;
+  width:80px;
   font-size: 16px;
   background-color: #067ac7;
   border: none;

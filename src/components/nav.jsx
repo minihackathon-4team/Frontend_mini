@@ -8,6 +8,7 @@ const Navbar = styled.div`
   font-size: 16px;
   background-color: #067ac7;
   padding: 10px 20px; /* Adjusted padding */
+  height:50px;
 `;
 
 const NavList = styled.ul`
@@ -35,6 +36,7 @@ const NavLink = styled.a`
 const Title = styled.a`
   text-decoration: none;
   color: white;
+  font-size:40px;
   font-weight: 700;
 `;
 

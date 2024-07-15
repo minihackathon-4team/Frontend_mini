@@ -52,9 +52,11 @@ const PageButton = styled.button`
   font-size: 16px;
   border: none;
   border-radius: 4px;
-  background-color: #067ac7;
+  background-color: #06c77a;
   color: white;
   cursor: pointer;
+
+
 `;
 
 function Moviepage() {
@@ -63,7 +65,7 @@ function Moviepage() {
   const [moviesList, setMoviesList] = useState("");
   const [searchMovies, setSearchMovies] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 20; // Number of movies to display per page
+  const itemsPerPage = 20; 
 
   const getMovies = async () => {
     const json = await (
@@ -89,19 +91,12 @@ function Moviepage() {
       movie.title.toLowerCase().includes(moviesList.toLowerCase())
     );
     setSearchMovies(filtered);
-    setCurrentPage(1); // Reset to first page on new search
   };
 
-  const handlePageChange = (pageNumber) => {
-    setCurrentPage(pageNumber+1);
-  };
-
-  // Calculate the movies to display for the current page
   const indexOfLastMovie = currentPage * itemsPerPage;
   const indexOfFirstMovie = indexOfLastMovie - itemsPerPage;
   const currentMovies = searchMovies.slice(indexOfFirstMovie, indexOfLastMovie);
 
-  // Calculate total pages
   const totalPages = Math.ceil(searchMovies.length / itemsPerPage);
 
   return (
@@ -128,12 +123,7 @@ function Moviepage() {
               ))}
             </MovieBox>
             <Pagination>
-              <PageButton
-                onClick={() => handlePageChange(currentPage - 1)}
-                disabled={currentPage === 1}
-              >
-                Previous
-              </PageButton>
+              
               {Array.from({ length: totalPages }, (_, index) => (
                 <PageButton
                   key={index + 1}
@@ -143,12 +133,6 @@ function Moviepage() {
                   {index + 1}
                 </PageButton>
               ))}
-              <PageButton
-                onClick={() => handlePageChange(currentPage + 1)}
-                disabled={currentPage === totalPages}
-              >
-                Next
-              </PageButton>
             </Pagination>
           </>
         )}
