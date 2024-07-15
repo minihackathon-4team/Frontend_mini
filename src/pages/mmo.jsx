@@ -34,6 +34,7 @@ const MovieBox = styled.div`
 const MovieTitle = styled.h2`
   font-size: 18px;
   margin: 10px 0;
+  text-decoration: none;
 `;
 
 const MovieImage = styled.img`
@@ -101,7 +102,7 @@ function Mmo() {
             <MovieBox>
               {currentMovies.map(item => (
                 <Movieindiv key={item.id}>
-                  <Link to={`/movie/${item.id}`}>
+                  <Link to={`/movie/${item.id}`} style={{textDecoration: "none", color:"#067ac7"}}>
                     <MovieImage src={item.poster_url} alt={item.title_kor} />
                     <MovieTitle>{item.title_kor}</MovieTitle>
                   </Link>
