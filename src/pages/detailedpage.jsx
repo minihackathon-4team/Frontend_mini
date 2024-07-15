@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
 import { useParams } from 'react-router-dom';
+import Nav from '../components/nav';
 
 export default function Detailedpage() {
   const { movieid } = useParams();
@@ -51,6 +52,8 @@ export default function Detailedpage() {
   }
 
   return (
+    <>
+     <Nav></Nav>
     <Pagewrapper>
       <ContentWrapper>
         <MovieTitle>
@@ -107,18 +110,23 @@ export default function Detailedpage() {
         </CommentsWrapper>
       </ContentWrapper>
     </Pagewrapper>
+    </>
   );
 }
 
 const Pagewrapper = styled.div`
   display: flex;
-  flex-wrap: wrap;
-  margin-right:50px;
-  width: 80vw;  
+  flex-direction: column;
+  flex-wrap: nowrap;
+  margin: 0 auto;
+  padding: 0 20px;  
+  max-width: 100vw;  
+  box-sizing: border-box;  
+  overflow-x: hidden;  
 
   h1 {
     font-size: 20px;
-    margin:20px 0px 10px 0px;
+    margin: 20px 0px 10px 0px;
   }
 `;
 
@@ -126,8 +134,11 @@ const ContentWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  margin-top: 50px;
+  width: 100%;  
+  box-sizing: border-box;  
 `;
+
+
 
 const MovieTitle = styled.div`
   display: flex;
@@ -201,6 +212,9 @@ const ActorsInfo = styled.div`
   justify-content: flex-start;
   gap: 20px;
   word-break: break-all;
+  overflow-x: auto;  
+  max-width: 100%; 
+
   img {
     width:120px;
   }
@@ -209,7 +223,6 @@ const ActorsInfo = styled.div`
     margin:0px;
     word-break: break-all;
     word-wrap: break-word;
-
   }
 `;
 
