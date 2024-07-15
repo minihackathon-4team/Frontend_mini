@@ -9,11 +9,12 @@ import Homepage from "./pages/homepage";
 import Signuppage from "./pages/signuppage";
 import Loginpage from "./pages/loginpage";
 import Detailedpage from "./pages/detailedpage";
+import ErrorPage from "./pages/error";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element:<Homepage/>
+    element:<Homepage/>  
   }, 
   {
     path: "/signup",
