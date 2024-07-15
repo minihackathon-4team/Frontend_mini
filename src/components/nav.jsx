@@ -1,3 +1,41 @@
+import styled from "styled-components";
+
+const Navbar = styled.div`
+  display: flex;
+  flex-direction: row;
+  font-size: 10px;
+  background-color: #1606c7;
+  padding-top: 10px;
+  padding-bottom: 8px;
+  padding-left: 3cqmin;
+`;
+
+const NavList = styled.ul`
+  display: flex;
+  flex-direction: row;
+`;
+
+const NavItem = styled.li`
+  font-size: 20px;
+  padding-right: 50px;
+  overflow: auto;
+`;
+
+const NavLink = styled.a`
+  text-decoration: none;
+  padding-top: 9px;
+  color: black;
+  font-weight: 700;
+  align-content: center;
+
+  &:link {
+    text-decoration: none;
+  }
+`;
+
+const Navigation = styled.nav`
+  display: flex;
+`;
 
 export default function Nav() {
 
@@ -6,15 +44,9 @@ export default function Nav() {
       <div className="navbar">
         <nav>
           <ul>
-            <li>
               <a href={`/`}>Logo</a>
-            </li>
-            <li>
               <a href={`/login`}>로그인</a>
-            </li>
-            <li>
               <a href={`/signin`}>회원가입</a>
-            </li>
           </ul>
         </nav>
       </div>
