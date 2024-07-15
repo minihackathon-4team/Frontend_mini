@@ -8,6 +8,7 @@ const Navbar = styled.div`
   font-size: 16px;
   background-color: #067ac7;
   padding: 10px 20px; /* Adjusted padding */
+  height:50px;
 `;
 
 const NavList = styled.ul`
@@ -32,22 +33,23 @@ const NavLink = styled.a`
   }
 `;
 
-const Logo = styled.a`
+const Title = styled.a`
   text-decoration: none;
   color: white;
+  font-size:40px;
   font-weight: 700;
 `;
 
 const Nav = () => {
   return (
     <Navbar>
-      <Logo href="/">Logo</Logo>
+      <Title href="/">MOVIE</Title>
       <NavList>
         <NavItem>
-          <NavLink href="/loginpage">로그인</NavLink>
+          <NavLink href="/loginpage">Login</NavLink>
         </NavItem>
         <NavItem>
-          <NavLink href="/signup">회원가입</NavLink>
+          <NavLink href="/signup">Sign Up</NavLink>
         </NavItem>
         <NavItem>
           <NavLink href="/detailedpage">상세페이지</NavLink>
