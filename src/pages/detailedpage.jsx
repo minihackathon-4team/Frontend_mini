@@ -22,7 +22,7 @@ export default function Detailedpage() {
 
   const getMovies = async () => {
     try {
-      const res = await axios.get(`https://port-0-minihackathon-12-https://port-0-https://port-0-minihackathon-12-lyec0qpi97716ac6.sel5.cloudtype.app/movie/1`);
+      const res = await axios.get(`https://port-0-minihackathon-12-lyec0qpi97716ac6.sel5.cloudtype.app/movie/1`);
       console.log('성공!!');
       const data = res.data;
       setMovies(data);
