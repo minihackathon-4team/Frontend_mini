@@ -95,6 +95,8 @@ const Loginpage = () => {
       console.log('Sending login data:', loginData); // Log the data being sent
       const response = await axios.post('https://hottomato.store/member/login/', loginData);
       if (response.data) {
+        sessionStorage.setItem("access", response.data.access);
+        sessionStorage.setItem("nickname", response.data.user.nickname);
         alert('로그인에 성공했습니다.');
         navigate('/');
       }
