@@ -91,15 +91,17 @@ const Loginpage = () => {
   
   const handleLogin = async () => {
     try {
-      const response = await axios.post('http://100.28.147.48/member/login/', { username, password });
+      const loginData = { username, password };
+      console.log('Sending login data:', loginData); // Log the data being sent
+      const response = await axios.post('https://hottomato.store/member/login/', loginData);
       if (response.data) {
-        alert('로그인에 성공했습니다.'); 
-        navigate('/homepage');
+        alert('로그인에 성공했습니다.');
+        navigate('/');
       }
     } catch (error) {
       if (error.response && error.response.data) {
         const errors = error.response.data;
-        console.log(errors)
+        console.log(errors);
         setMessage(errors.non_field_errors ? errors.non_field_errors[0] : '로그인에 실패했습니다. 다시 시도해주세요.');
       } else {
         setMessage('로그인에 실패했습니다. 다시 시도해주세요.');
