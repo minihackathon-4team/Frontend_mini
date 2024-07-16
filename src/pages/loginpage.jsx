@@ -2,13 +2,12 @@ import styled from "styled-components";
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from "axios";
+import Navlogo from "../components/navlogo";
 
 const Login = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
-  margin: 0 100px;
 `;
 
 const LoginSetting = styled.div`
@@ -97,9 +96,9 @@ const Loginpage = () => {
         navigate('/homepage');
       }
     } catch (error) {
-      console.error(error);
       if (error.response && error.response.data) {
         const errors = error.response.data;
+        console.log(errors)
         setMessage(errors.non_field_errors ? errors.non_field_errors[0] : '로그인에 실패했습니다. 다시 시도해주세요.');
       } else {
         setMessage('로그인에 실패했습니다. 다시 시도해주세요.');
@@ -116,6 +115,8 @@ const Loginpage = () => {
   };
 
   return (
+  <>
+  <Navlogo/>
     <Login>
       <LoginSetting>
         <h2>Login</h2>
@@ -141,6 +142,7 @@ const Loginpage = () => {
         {message && <ErrorMessage>{message}</ErrorMessage>}
       </LoginSetting>
     </Login>
+  </>
   );
 }
 

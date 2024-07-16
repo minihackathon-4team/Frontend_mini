@@ -2,12 +2,13 @@ import styled from 'styled-components';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import Navlogo from '../components/navlogo';
 
 const SignUp = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  height: 90vh;
 `;
 
 const SignUpSetting = styled.div`
@@ -68,7 +69,7 @@ const ErrorMessage = styled.div`
 `;
 
 const Signuppage = () => {
-  const [id, setId] = useState('');
+  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [message, setMessage] = useState('');
@@ -81,9 +82,9 @@ const Signuppage = () => {
     }
 
     try {
-      const response = await axios.post('/api/signup', { id, password });
+      const response = await axios.post('/api/signup', { username, password });
       if (response.status === 200) {
-        navigate('/login');
+        navigate('/loginpage');
       }
     } catch (error) {
       console.error(error);
@@ -101,39 +102,46 @@ const Signuppage = () => {
     window.history.back();
   };
 
+  const goLogin = () => {
+    navigate('/loginpage');
+  };
+
   return (
-    <SignUp>
-      <SignUpSetting>
-        <h2>Sign Up</h2>
-        <div className='input-group'>
-          <Input
-              type="text"
-              placeholder="Username"
-              value={id}
-              onChange={(e) => setId(e.target.value)}
-          />
-        </div>
-        <div className='input-group'>
-          <Input
-            type="password"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-          <Input
-            type="password"
-            placeholder="Password Confirm"
-            value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
-          />
-        </div>
-        <SignUpButton>
-          <button onClick={handleSignUp}>Sign Up</button>
-        </SignUpButton>
-        <BackButton onClick={goBack}>Previous</BackButton>
-        {message && <ErrorMessage>{message}</ErrorMessage>}
-      </SignUpSetting>
-    </SignUp>
+    <>
+      <Navlogo/>
+      <SignUp>
+        <SignUpSetting>
+          <h2>Sign Up</h2>
+          <div className='input-group'>
+            <Input
+                type="text"
+                placeholder="Username"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+            />
+          </div>
+          <div className='input-group'>
+            <Input
+              type="password"
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            <Input
+              type="password"
+              placeholder="Password Confirm"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+            />
+          </div>
+          <SignUpButton>
+            <button onClick={handleSignUp}>Sign Up</button>
+          </SignUpButton>
+          <BackButton onClick={goLogin}>go to Login</BackButton>
+          {message && <ErrorMessage>{message}</ErrorMessage>}
+        </SignUpSetting>
+      </SignUp>
+    </>
   );
 }
 
