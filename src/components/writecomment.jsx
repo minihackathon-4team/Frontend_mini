@@ -24,9 +24,9 @@ export default function WriteComment() {
 
     const addComment = async () => {
         try {
-            const response = await axios.post(`https://port-0-minihackathon-12-lyec0qpi97716ac6.sel5.cloudtype.app/movie/${movieid}/comment`, {
-                comment: newComment,
-                username: { nickname: "User1" }
+            const response = await axios.post(`https://port-0-minihackathon-12-lyec0qpi97716ac6.sel5.cloudtype.app/movie/${movieid}/comment`,{
+              comment: newComment,
+              user: {nickname: "User1"}
             });
             console.log('코멘트 추가 성공');
             setComments([...comments, response.data]);
@@ -34,12 +34,11 @@ export default function WriteComment() {
         } catch (err) {
             console.error('error:', err);
         }
-
     }
 
     useEffect(() => {
         getComments();
-    }, []);
+    }, [getComments]);
 
     if (!movies) {
         return <div>Loading...</div>;
@@ -139,6 +138,6 @@ const InputButton = styled.button`
   color: white;
 
   &:hover {
-      background-color: black;
+      background-color: #1b4a7d;
     }
 `;
