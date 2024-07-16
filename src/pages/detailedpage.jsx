@@ -28,7 +28,7 @@ export default function Detailedpage() {
   const getMovies = async () => {
     try {
       const res = await axios.get(`https://port-0-minihackathon-12-lyec0qpi97716ac6.sel5.cloudtype.app/movie/${movieid}`);
-      console.log('성공!!');
+      console.log('영화 정보 로딩 성공!');
       const data = res.data;
       setMovies(data);
       setTitleKr(data.title_kor);
@@ -53,7 +53,7 @@ export default function Detailedpage() {
   }, [movieid]);
 
   if (!movies) {
-    return <Loading>데이터를 불러오는 중...</Loading>;
+    return <div>Loading...</div>;
   }
 
   return (
@@ -106,10 +106,6 @@ export default function Detailedpage() {
   );
 }
 
-const Loading = styled.h1`
-  text-align: center;
-`;
-
 const Pagewrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -126,7 +122,7 @@ const Pagewrapper = styled.div`
   }
 `;
 
-const ContentWrapper = styled.div`
+export const ContentWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
