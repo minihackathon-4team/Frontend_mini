@@ -42,13 +42,46 @@ const MovieImage = styled.img`
   border-radius: 10px;
 `;
 
+const Pagination = styled.div`
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;
+`;
+
+const PageButton = styled.button`
+  margin: 0 5px;
+  padding: 10px 15px;
+  font-size: 16px;
+  border: none;
+  border-radius: 4px;
+  background-color: ${(props) => props.active ? '#067ac7' : '#f0f0f0'};
+  color: ${(props) => props.active ? 'white' : 'black'};
+  cursor: pointer;
+  display: ${(props) => props.hide ? 'none' : 'inline-block'};
+  
+  &:hover {
+    background-color: ${(props) => props.disabled ? '#ddd' : '#067ac7'};
+    color: ${(props) => props.disabled ? 'initial' : 'white'};
+  }
+
+  &:focus {
+    outline: none;
+  }
+
+  ${(props) => props.disabled && `
+    display: none;
+  `}
+`;
+
 function Mmo() {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [moviesList, setMoviesList] = useState("");
   const [searchMovies, setSearchMovies] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
+  const [currentBlock, setCurrentBlock] = useState(0);
   const itemsPerPage = 20;
+  const pagesPerBlock = 10;
 
   const fetchData = async () => {
     try {
@@ -87,6 +120,40 @@ function Mmo() {
     setCurrentPage(pageNumber);
   };
 
+  const handlePreviousBlock = () => {
+    setCurrentPage(currentBlock * pagesPerBlock);
+    setCurrentBlock(currentBlock - 1);
+  };
+
+  const handleNextBlock = () => {
+    setCurrentPage((currentBlock + 1) * pagesPerBlock + 1);
+    setCurrentBlock(currentBlock + 1);
+  };
+
+  const renderPagination = () => {
+    const startPage = currentBlock * pagesPerBlock + 1;
+    const endPage = Math.min(startPage + pagesPerBlock - 1, totalPages);
+
+    return (
+      <Pagination>
+        <PageButton onClick={handlePreviousBlock} disabled={currentBlock === 0}>
+          Previous
+        </PageButton>
+        {Array.from({ length: endPage - startPage + 1 }, (_, i) => startPage + i).map((page) => (
+          <PageButton
+            key={page}
+            onClick={() => handlePageChange(page)}
+            active={currentPage === page}
+          >
+            {page}
+          </PageButton>
+        ))}
+        <PageButton onClick={handleNextBlock} disabled={endPage >= totalPages}>
+          Next
+        </PageButton>
+      </Pagination>
+    );
+  };
 
   return (
     <>
@@ -110,56 +177,12 @@ function Mmo() {
                 </Movieindiv>
               ))}
             </MovieBox>
-            <Pagination>
-              <PageButton
-                onClick={() => handlePageChange(currentPage - 1)}
-                disabled={currentPage === 1}
-              >
-                Previous
-              </PageButton>
-              {Array.from({ length: 10 }, (_, index) => (
-                <PageButton
-                  key={index + 1}
-                  onClick={() => handlePageChange(index + 1)}
-                  disabled={currentPage === index + 1}
-                >
-                  {index + 1}
-                </PageButton>
-              ))}
-              <PageButton
-                onClick={() => handlePageChange(currentPage + 1)}
-                disabled={currentPage === totalPages}
-              >
-                Next
-              </PageButton>
-            </Pagination>
+            {renderPagination()}
           </>
         )}
       </Container>
     </>
   );
 }
-
-const Pagination = styled.div`
-  display: flex;
-  justify-content: center;
-  margin: 20px 0;
-`;
-
-const PageButton = styled.button`
-  margin: 0 5px;
-  padding: 10px 15px;
-  font-size: 16px;
-  border: none;
-  border-radius: 4px;
-  background-color: #067ac7;
-  color: white;
-  cursor: pointer;
-
-  &:disabled {
-    background-color: #ddd;
-    cursor: not-allowed;
-  }
-// `;
 
 export default Mmo;
