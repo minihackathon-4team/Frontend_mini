@@ -9,11 +9,12 @@ export default function WriteComment() {
     const [movies, setMovies] = useState(null);
     const [comments, setComments] = useState([]);
     const [newComment, setNewComment] = useState('');
+    const [isCommentAdded, setIsCommentAdded] = useState(false);
     let user = sessionStorage.getItem("nickname");
 
     const getComments = useCallback(async () => {
         try {
-            const res = await axios.get(`https://port-0-minihackathon-12-lyec0qpi97716ac6.sel5.cloudtype.app/movie/${movieid}`)
+            const res = await axios.get(`https://hottomato.store/mainpage/comment/list/${movieid}`)
             console.log('코멘트 로딩 성공')
             const data = res.data;
             setMovies(data);
@@ -21,7 +22,7 @@ export default function WriteComment() {
         } catch (err) {
             console.error('error:', err);
         }
-    });
+    }, [movieid]);
 
     const addComment = async () => {
       const data = {
@@ -29,13 +30,14 @@ export default function WriteComment() {
         user: user
       }
         try {
-            const response = await axios.post(`https://port-0-minihackathon-12-lyec0qpi97716ac6.sel5.cloudtype.app/movie/${movieid}/comment`, data, {
+            const response = await axios.post(`https://hottomato.store/mainpage/comment/list/${movieid}`, data, {
               headers: {
                 Authorization: `Bearer ${sessionStorage.getItem('access')}`
               }
             });
             alert('코멘트 추가 성공');
             setComments([...comments, response.data]);
+            setIsCommentAdded(true);
             setNewComment('');
         } catch (err) {
             console.error('error:', err);
@@ -44,8 +46,15 @@ export default function WriteComment() {
     }
 
     useEffect(() => {
+      if (isCommentAdded) {
         getComments();
-    }, [getComments]);
+        setIsCommentAdded(false);
+      }
+    }, [getComments, isCommentAdded]);
+
+    useEffect(() => {
+      getComments();
+  }, [getComments]);
 
     if (!movies) {
         return <div>Loading...</div>;

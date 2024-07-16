@@ -27,7 +27,7 @@ export default function Detailedpage() {
 
   const getMovies = async () => {
     try {
-      const res = await axios.get(`https://port-0-minihackathon-12-lyec0qpi97716ac6.sel5.cloudtype.app/movie/${movieid}`);
+      const res = await axios.get(`https://hottomato.store/mainpage/detail/${movieid}`);
       console.log('영화 정보 로딩 성공!');
       const data = res.data;
       setMovies(data);
