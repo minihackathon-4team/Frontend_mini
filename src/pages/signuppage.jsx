@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import Navlogo from '../components/navlogo';
 
 const SignUp = styled.div`
   display: flex;
@@ -82,7 +83,7 @@ const Signuppage = () => {
     }
 
     try {
-      const response = await axios.post('hottomato.store/member/signup', { username, password });
+      const response = await axios.post('https://hottomato.store/member/signup', { username, nickname, password });
       if (response.status === 200) {
         navigate('/loginpage');
       }
@@ -91,6 +92,8 @@ const Signuppage = () => {
       if (error.response && error.response.data) {
         const errors = error.response.data;
         if (errors.non_field_errors) setMessage(errors.non_field_errors[0]);
+        else if (errors.username) setMessage(`Username: ${errors.username[0]}`);
+        else if (errors.nickname) setMessage(`Nickname: ${errors.nickname[0]}`);
         else setMessage('회원가입에 실패했습니다. 다시 시도해주세요.');
       } else {
         setMessage('회원가입에 실패했습니다. 다시 시도해주세요.');
@@ -107,44 +110,47 @@ const Signuppage = () => {
   };
 
   return (
-    <SignUp>
-      <SignUpSetting>
-        <h2>Sign Up</h2>
-        <div className='input-group'>
-          <Input
-              type="text"
-              placeholder="Username"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-          />
-          <Input
-              type="text"
-              placeholder="Nickname"
-              value={nickname}
-              onChange={(e) => setNickname(e.target.value)}
-          />
-        </div>
-        <div className='input-group'>
-          <Input
-            type="password"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-          <Input
-            type="password"
-            placeholder="Password Confirm"
-            value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
-          />
-        </div>
-        <SignUpButton>
-          <button onClick={handleSignUp}>Sign Up</button>
-        </SignUpButton>
-        <BackButton onClick={goBack}>Previous</BackButton>
-        {message && <ErrorMessage>{message}</ErrorMessage>}
-      </SignUpSetting>
-    </SignUp>
+    <>
+      <Navlogo/>
+      <SignUp>
+        <SignUpSetting>
+          <h2>Sign Up</h2>
+          <div className='input-group'>
+            <Input
+                type="text"
+                placeholder="Username"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+            />
+            <Input
+                type="text"
+                placeholder="Nickname"
+                value={nickname}
+                onChange={(e) => setNickname(e.target.value)}
+            />
+          </div>
+          <div className='input-group'>
+            <Input
+              type="password"
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            <Input
+              type="password"
+              placeholder="Password Confirm"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+            />
+          </div>
+          <SignUpButton>
+            <button onClick={handleSignUp}>Sign Up</button>
+          </SignUpButton>
+          <BackButton onClick={goBack}>Previous</BackButton>
+          {message && <ErrorMessage>{message}</ErrorMessage>}
+        </SignUpSetting>
+      </SignUp>
+    </>
   );
 }
 
