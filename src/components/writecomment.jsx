@@ -14,7 +14,7 @@ export default function WriteComment() {
 
     const getComments = useCallback(async () => {
         try {
-            const res = await axios.get(`https://port-0-minihackathon-12-lyec0qpi97716ac6.sel5.cloudtype.app/movie/${movieid}`)
+            const res = await axios.get(`https://hottomato.store/mainpage/comment/list/${movieid}`)
             console.log('코멘트 로딩 성공')
             const data = res.data;
             setMovies(data);
@@ -30,7 +30,7 @@ export default function WriteComment() {
         user: user
       }
         try {
-            const response = await axios.post(`https://port-0-minihackathon-12-lyec0qpi97716ac6.sel5.cloudtype.app/movie/${movieid}/comment`, data, {
+            const response = await axios.post(`https://hottomato.store/mainpage/comment/list/${movieid}`, data, {
               headers: {
                 Authorization: `Bearer ${sessionStorage.getItem('access')}`
               }
