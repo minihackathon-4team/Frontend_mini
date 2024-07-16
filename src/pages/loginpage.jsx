@@ -8,6 +8,7 @@ const Login = styled.div`
   justify-content: center;
   align-items: center;
   height: 100vh;
+  margin: 0 100px;
 `;
 
 const LoginSetting = styled.div`
@@ -30,8 +31,8 @@ const LoginButton = styled.div`
   margin-top: 50px;
 
   button {
-    padding: 10px 20px;
-    width: 30%;
+    padding: 10px 10px;
+    width: 70%;
     background-color: #067ac7;
     color: white;
     border: none;
@@ -52,15 +53,16 @@ const SignUpLink = styled.button`
   cursor: pointer;
   font-size: 12px;
   float: right;
-  margin-right: 15%;
-
+  margin-right: 12%;
+  font-size: 15px;
+  
   &:hover {
     text-decoration: underline;
   }
 `;
 
 const BackButton = styled.button`
-  margin-top: 20px;
+  margin-top: 10px;
   background: none;
   border: 1px solid #067ac7;
   color: #067ac7;
@@ -68,6 +70,7 @@ const BackButton = styled.button`
   border-radius: 3px;
   cursor: pointer;
   font-size: 14px;
+  width:70%;
 
   &:hover {
     background-color: #067ac7;
@@ -76,28 +79,28 @@ const BackButton = styled.button`
 `;
 
 const ErrorMessage = styled.div`
-  margin-top: 10px;
+  margin-top: 20px;
   color: #ff3a6e;
 `;
 
 const Loginpage = () => {
-  const [id, setId] = useState('');
+  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
   const navigate = useNavigate();
   
   const handleLogin = async () => {
     try {
-      const response = await axios.post('/api/login', { id, password });
-      if (response.status === 200) {
-        navigate('/dashboard');
+      const response = await axios.post('http://100.28.147.48/member/login/', { username, password });
+      if (response.data) {
+        alert('로그인에 성공했습니다.'); 
+        navigate('/homepage');
       }
     } catch (error) {
       console.error(error);
       if (error.response && error.response.data) {
         const errors = error.response.data;
-        if (errors.non_field_errors) setMessage(errors.non_field_errors[0]);
-        else setMessage('로그인에 실패했습니다. 다시 시도해주세요.');
+        setMessage(errors.non_field_errors ? errors.non_field_errors[0] : '로그인에 실패했습니다. 다시 시도해주세요.');
       } else {
         setMessage('로그인에 실패했습니다. 다시 시도해주세요.');
       }
@@ -105,11 +108,11 @@ const Loginpage = () => {
   };
 
   const goToSignup = () => {
-    navigate('/signup');
+    navigate('/signuppage');
   };
 
   const goBack = () => {
-    window.history.back(); // Go back to the previous page
+    navigate(-1); // Go back to the previous page using react-router-dom's navigate function
   };
 
   return (
@@ -119,8 +122,8 @@ const Loginpage = () => {
         <Input
           type='text'
           placeholder="Username"
-          value={id}
-          onChange={(e) => setId(e.target.value)}
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
         />
         <Input
           type='password'
@@ -132,13 +135,13 @@ const Loginpage = () => {
           <SignUpLink onClick={goToSignup}>Sign Up</SignUpLink>
         </div>
         <LoginButton>
-          <button onClick={handleLogin}>Login</button>
+          <button type="button" onClick={handleLogin}>Login</button>
         </LoginButton>
-        <BackButton onClick={goBack}>Previous</BackButton>
+        <BackButton type="button" onClick={goBack}>Previous</BackButton>
         {message && <ErrorMessage>{message}</ErrorMessage>}
       </LoginSetting>
     </Login>
-  )
+  );
 }
 
 export default Loginpage;

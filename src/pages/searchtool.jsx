@@ -5,14 +5,14 @@ const SearchContainer = styled.div`
   display: flex;
   justify-content: center;
   margin: 20px;
-  margin-top: 100px;
-  margin-bottom:100px;
+  margin-top: 70px;
+  margin-bottom: 70px;
   height: 50px;
 `;
 
 const SearchInput = styled.input`
-  padding: 5px;
-  font-size: 27px;
+  padding: 0 20px;
+  font-size: 22px;
   border: 1px solid #ccc;
   border-radius: 4px;
   width: 50%;
