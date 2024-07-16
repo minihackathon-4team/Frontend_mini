@@ -8,6 +8,7 @@ export default function WriteComment() {
     const { movieid } = useParams();
     const [movies, setMovies] = useState(null);
     const [comments, setComments] = useState([]);
+    const [newComment, setNewComment] = useState('');
 
     const getComments = useCallback(async () => {
         try {
@@ -21,6 +22,21 @@ export default function WriteComment() {
         }
     });
 
+    const addComment = async () => {
+        try {
+            const response = await axios.post(`https://port-0-minihackathon-12-lyec0qpi97716ac6.sel5.cloudtype.app/movie/${movieid}/comment`, {
+                comment: newComment,
+                username: { nickname: "User1" }
+            });
+            console.log('코멘트 추가 성공');
+            setComments([...comments, response.data]);
+            setNewComment('');
+        } catch (err) {
+            console.error('error:', err);
+        }
+
+    }
+
     useEffect(() => {
         getComments();
     }, []);
@@ -33,8 +49,11 @@ export default function WriteComment() {
     <CommentPage>
         <h1>comment</h1>
         <InputCommentBox>
-          <InputComment></InputComment>
-          <InputButton>작성</InputButton>
+          <InputComment
+          value={newComment}
+          onChange={(e) => setNewComment(e.target.value)} 
+          placeholder='한줄평을 작성하세요.'></InputComment>
+          <InputButton onClick={addComment}>작성</InputButton>
         </InputCommentBox>
         <CommentsWrapper >
           {comments.map((comment) => (
