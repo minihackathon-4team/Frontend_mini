@@ -3,13 +3,8 @@ import axios from 'axios';
 import styled from 'styled-components';
 import { useParams } from 'react-router-dom';
 import Nav from '../components/nav';
-import { useNavigate } from 'react-router-dom';
-import WriteComment from '../components/writecomment';
 
 export default function Detailedpage() {
-
-  const navigate = useNavigate();
-
   const { movieid } = useParams();
   const [movies, setMovies] = useState(null);
   const [titlekr, setTitleKr] = useState('');
@@ -27,8 +22,12 @@ export default function Detailedpage() {
 
   const getMovies = async () => {
     try {
+
+      const res = await axios.get(`https://port-0-minihackathon-12-lyec0qpi97716ac6.sel5.cloudtype.app/movie/${movieid}`);
+      console.log('성공!!');
       const res = await axios.get(`https://hottomato.store/mainpage/detail/${movieid}`);
       console.log('영화 정보 로딩 성공!');
+
       const data = res.data;
       setMovies(data);
       setTitleKr(data.title_kor);
@@ -99,7 +98,20 @@ export default function Detailedpage() {
             </div>
           ))}
         </ActorsInfo>
-        <WriteComment></WriteComment>
+        <h1>comment</h1>
+        <InputCommentBox>
+          <InputComment></InputComment>
+          <InputButton>작성</InputButton>
+        </InputCommentBox>
+        <CommentsWrapper >
+          {comments.map((comment) => (
+            <Comment key={comment.id}>
+              <h5 style={{color:'#2d5774'}}>{comment.user.nickname}</h5>
+              <hr></hr>
+              <p>{comment.comment}</p>
+            </Comment>
+          ))}
+        </CommentsWrapper>
       </ContentWrapper>
     </Pagewrapper>
     </>
@@ -122,7 +134,7 @@ const Pagewrapper = styled.div`
   }
 `;
 
-export const ContentWrapper = styled.div`
+const ContentWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -216,4 +228,65 @@ const ActorsInfo = styled.div`
     word-break: break-all;
     word-wrap: break-word;
   }
+`;
+
+const CommentsWrapper = styled.div`
+display: flex;
+flex-direction: row;
+gap: 10px;
+
+h5 {
+  margin-left: 30px;
+}
+
+p {
+  margin-left: 30px;
+}
+
+hr {
+  display: flex;
+  justify-content: flex-start;
+  width:0%;
+  margin: 0px;
+  margin-left: 30px;
+}
+`;
+
+const Comment = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+  margin-top: 20px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  padding: 5px;
+  background-color: #f1f1f1;
+`;
+
+const InputCommentBox = styled.div`
+  display: flex;
+  flex-direction: row;
+  gap:15px;
+  width:100%;
+  height: 50px;
+`;
+
+const InputComment = styled.input`
+  width:100%;
+  border: none;
+  outline-color: #067ac7;
+  box-shadow: 0 0 0 1px #067ac7;
+  border-radius: 3px;
+`;
+
+const InputButton = styled.button`
+  width:100px;
+  background-color: #067ac7;
+  border: none;
+  border-radius: 3px;
+  color: white;
+
+  &:hover {
+      background-color: black;
+    }
 `;
