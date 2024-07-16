@@ -230,6 +230,7 @@ const CommentsWrapper = styled.div`
 display: flex;
 flex-direction: row;
 gap: 10px;
+margin-bottom: 10px;
 
 h5 {
   margin-left: 30px;
