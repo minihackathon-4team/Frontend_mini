@@ -160,6 +160,6 @@ const PageButton = styled.button`
     background-color: #ddd;
     cursor: not-allowed;
   }
-`;
+// `;
 
 export default Mmo;
