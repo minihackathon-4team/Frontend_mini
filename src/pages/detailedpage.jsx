@@ -3,8 +3,13 @@ import axios from 'axios';
 import styled from 'styled-components';
 import { useParams } from 'react-router-dom';
 import Nav from '../components/nav';
+import { useNavigate } from 'react-router-dom';
+import WriteComment from '../components/writecomment';
 
 export default function Detailedpage() {
+
+  const navigate = useNavigate();
+
   const { movieid } = useParams();
   const [movies, setMovies] = useState(null);
   const [titlekr, setTitleKr] = useState('');
@@ -48,7 +53,7 @@ export default function Detailedpage() {
   }, [movieid]);
 
   if (!movies) {
-    return <div>Loading...</div>;
+    return <Loading>데이터를 불러오는 중...</Loading>;
   }
 
   return (
@@ -94,25 +99,16 @@ export default function Detailedpage() {
             </div>
           ))}
         </ActorsInfo>
-        <h1>comment</h1>
-        <InputCommentBox>
-          <InputComment></InputComment>
-          <InputButton>작성</InputButton>
-        </InputCommentBox>
-        <CommentsWrapper >
-          {comments.map((comment) => (
-            <Comment key={comment.id}>
-              <h5 style={{color:'#2d5774'}}>{comment.user.nickname}</h5>
-              <hr></hr>
-              <p>{comment.comment}</p>
-            </Comment>
-          ))}
-        </CommentsWrapper>
+        <WriteComment></WriteComment>
       </ContentWrapper>
     </Pagewrapper>
     </>
   );
 }
+
+const Loading = styled.h1`
+  text-align: center;
+`;
 
 const Pagewrapper = styled.div`
   display: flex;
@@ -224,66 +220,4 @@ const ActorsInfo = styled.div`
     word-break: break-all;
     word-wrap: break-word;
   }
-`;
-
-const CommentsWrapper = styled.div`
-display: flex;
-flex-direction: row;
-gap: 10px;
-margin-bottom: 10px;
-
-h5 {
-  margin-left: 30px;
-}
-
-p {
-  margin-left: 30px;
-}
-
-hr {
-  display: flex;
-  justify-content: flex-start;
-  width:0%;
-  margin: 0px;
-  margin-left: 30px;
-}
-`;
-
-const Comment = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 300px;
-  margin-top: 20px;
-  margin-bottom: 10px;
-  border-radius: 5px;
-  padding: 5px;
-  background-color: #f1f1f1;
-`;
-
-const InputCommentBox = styled.div`
-  display: flex;
-  flex-direction: row;
-  gap:15px;
-  width:100%;
-  height: 50px;
-`;
-
-const InputComment = styled.input`
-  width:100%;
-  border: none;
-  outline-color: #067ac7;
-  box-shadow: 0 0 0 1px #067ac7;
-  border-radius: 3px;
-`;
-
-const InputButton = styled.button`
-  width:100px;
-  background-color: #067ac7;
-  border: none;
-  border-radius: 3px;
-  color: white;
-
-  &:hover {
-      background-color: black;
-    }
 `;
