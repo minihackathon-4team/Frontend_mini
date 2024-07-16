@@ -41,13 +41,16 @@ const PageButton = styled.button`
 function Movies() {
   const [movies, setMovies] = useState([]); // 영화 데이터
   const [currentPage, setCurrentPage] = useState(0); // 현재 페이지
+  const [currentBlock, setCurrentBlock] = useState(0);
   const [totalPage, setTotalPage] = useState(0); // 총 페이지 수
+  const itemsPerPage = 10;
+  const pagesPerBlock = 10;
 
   // 총 페이지 수 계산
   useEffect(() => {
     const totalPage = async () => {
       try {
-        const res = await api.moviePage(0, 10);
+        const res = await api.moviePage(0, itemsPerPage);
         setTotalPage(res.data);
       } catch (error) {
         console.log(error);
@@ -59,7 +62,7 @@ function Movies() {
   useEffect(() => {
     const movieList = async () => {
       try {
-        const res = await api.moviePageList(currentPage, 10);
+        const res = await api.moviePageList(currentPage, itemsPerPage);
         console.log(res.data);
         setMovies(res.data);
       } catch (error) {
@@ -75,22 +78,45 @@ function Movies() {
     setCurrentPage(number - 1);
   };
 
+  const handlePreviousBlock = () => {
+    setCurrentBlock(currentBlock - 1);
+  };
+
+  const handleNextBlock = () => {
+    setCurrentBlock(currentBlock + 1);
+  };
+
   const renderPagination = () => {
     return (
       <PaginationContainer>
-        {Array.from({ length: totalPage }, (_, i) => i + 1).map((page) => (
-          <PageButton key={page} onClick={() => handlePageChange(page)}>
+        <PageButton onClick={handlePreviousBlock} disabled={currentBlock === 0}>
+          Previous
+        </PageButton>
+        {Array.from({ length: endPage - startPage + 1 }, (_, i) => startPage + i).map((page) => (
+          <PageButton
+            key={page}
+            onClick={() => handlePageChange(page)}
+            disabled={currentPage === page - 1}
+          >
             {page}
           </PageButton>
         ))}
+        <PageButton onClick={handleNextBlock} disabled={endPage >= totalPage}>
+          Next
+        </PageButton>
       </PaginationContainer>
     );
   };
 
   return (
-    <>
+    <div>
+      <CardContainer>
+        {movies.map((movie) => (
+          <MovieCardView key={movie.id} movie={movie} />
+        ))}
+      </CardContainer>
       {renderPagination()}
-    </>
+    </div>
   );
 }
 
