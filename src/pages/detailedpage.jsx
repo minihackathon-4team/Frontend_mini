@@ -48,7 +48,7 @@ export default function Detailedpage() {
   }, [movieid]);
 
   if (!movies) {
-    return <div>Loading...</div>;
+    return <Loading>데이터를 불러오는 중...</Loading>;
   }
 
   return (
@@ -113,6 +113,10 @@ export default function Detailedpage() {
     </>
   );
 }
+
+const Loading = styled.h1`
+  text-align: center;
+`;
 
 const Pagewrapper = styled.div`
   display: flex;

@@ -49,7 +49,7 @@ const Nav = () => {
           <NavLink href="/loginpage">Login</NavLink>
         </NavItem>
         <NavItem>
-          <NavLink href="/signuppage">Sign Up</NavLink>
+          <NavLink href="/signuppage">SignUp</NavLink>
         </NavItem>
       </NavList>
     </Navbar>

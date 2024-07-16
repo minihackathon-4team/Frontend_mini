@@ -8,6 +8,7 @@ const Login = styled.div`
   justify-content: center;
   align-items: center;
   height: 100vh;
+  margin: 0 100px;
 `;
 
 const LoginSetting = styled.div`
