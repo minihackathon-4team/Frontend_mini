@@ -2,7 +2,6 @@ import styled from 'styled-components';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import Navlogo from '../components/navlogo';
 
 const SignUp = styled.div`
   display: flex;
@@ -69,7 +68,7 @@ const ErrorMessage = styled.div`
 `;
 
 const Signuppage = () => {
-  const [id, setId] = useState('');
+  const [username, setUsername] = useState('');
   const [nickname, setNickname] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -83,7 +82,7 @@ const Signuppage = () => {
     }
 
     try {
-      const response = await axios.post('/api/signup', { username, password });
+      const response = await axios.post('hottomato.store/member/signup', { username, password });
       if (response.status === 200) {
         navigate('/loginpage');
       }
@@ -115,8 +114,8 @@ const Signuppage = () => {
           <Input
               type="text"
               placeholder="Username"
-              value={id}
-              onChange={(e) => setId(e.target.value)}
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
           />
           <Input
               type="text"
