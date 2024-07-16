@@ -69,7 +69,8 @@ const ErrorMessage = styled.div`
 `;
 
 const Signuppage = () => {
-  const [username, setUsername] = useState('');
+  const [id, setId] = useState('');
+  const [nickname, setNickname] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [message, setMessage] = useState('');
@@ -107,41 +108,44 @@ const Signuppage = () => {
   };
 
   return (
-    <>
-      <Navlogo/>
-      <SignUp>
-        <SignUpSetting>
-          <h2>Sign Up</h2>
-          <div className='input-group'>
-            <Input
-                type="text"
-                placeholder="Username"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-            />
-          </div>
-          <div className='input-group'>
-            <Input
-              type="password"
-              placeholder="Password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-            <Input
-              type="password"
-              placeholder="Password Confirm"
-              value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
-            />
-          </div>
-          <SignUpButton>
-            <button onClick={handleSignUp}>Sign Up</button>
-          </SignUpButton>
-          <BackButton onClick={goLogin}>go to Login</BackButton>
-          {message && <ErrorMessage>{message}</ErrorMessage>}
-        </SignUpSetting>
-      </SignUp>
-    </>
+    <SignUp>
+      <SignUpSetting>
+        <h2>Sign Up</h2>
+        <div className='input-group'>
+          <Input
+              type="text"
+              placeholder="Username"
+              value={id}
+              onChange={(e) => setId(e.target.value)}
+          />
+          <Input
+              type="text"
+              placeholder="Nickname"
+              value={nickname}
+              onChange={(e) => setNickname(e.target.value)}
+          />
+        </div>
+        <div className='input-group'>
+          <Input
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <Input
+            type="password"
+            placeholder="Password Confirm"
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
+          />
+        </div>
+        <SignUpButton>
+          <button onClick={handleSignUp}>Sign Up</button>
+        </SignUpButton>
+        <BackButton onClick={goBack}>Previous</BackButton>
+        {message && <ErrorMessage>{message}</ErrorMessage>}
+      </SignUpSetting>
+    </SignUp>
   );
 }
 
