@@ -9,6 +9,7 @@ export default function WriteComment() {
     const [movies, setMovies] = useState(null);
     const [comments, setComments] = useState([]);
     const [newComment, setNewComment] = useState('');
+    const [isCommentAdded, setIsCommentAdded] = useState(false);
     let user = sessionStorage.getItem("nickname");
 
     const getComments = useCallback(async () => {
@@ -21,7 +22,7 @@ export default function WriteComment() {
         } catch (err) {
             console.error('error:', err);
         }
-    });
+    }, [movieid]);
 
     const addComment = async () => {
       const data = {
@@ -36,6 +37,7 @@ export default function WriteComment() {
             });
             alert('코멘트 추가 성공');
             setComments([...comments, response.data]);
+            setIsCommentAdded(true);
             setNewComment('');
         } catch (err) {
             console.error('error:', err);
@@ -44,8 +46,15 @@ export default function WriteComment() {
     }
 
     useEffect(() => {
+      if (isCommentAdded) {
         getComments();
-    }, [getComments]);
+        setIsCommentAdded(false);
+      }
+    }, [getComments, isCommentAdded]);
+
+    useEffect(() => {
+      getComments();
+  }, [getComments]);
 
     if (!movies) {
         return <div>Loading...</div>;
