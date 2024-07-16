@@ -9,6 +9,7 @@ export default function WriteComment() {
     const [movies, setMovies] = useState(null);
     const [comments, setComments] = useState([]);
     const [newComment, setNewComment] = useState('');
+    let user = sessionStorage.getItem("nickname");
 
     const getComments = useCallback(async () => {
         try {
@@ -23,16 +24,22 @@ export default function WriteComment() {
     });
 
     const addComment = async () => {
+      const data = {
+        comment: newComment,
+        user: user
+      }
         try {
-            const response = await axios.post(`https://port-0-minihackathon-12-lyec0qpi97716ac6.sel5.cloudtype.app/movie/${movieid}/comment`,{
-              comment: newComment,
-              user: {nickname: "User1"}
+            const response = await axios.post(`https://port-0-minihackathon-12-lyec0qpi97716ac6.sel5.cloudtype.app/movie/${movieid}/comment`, data, {
+              headers: {
+                Authorization: `Bearer ${sessionStorage.getItem('access')}`
+              }
             });
-            console.log('코멘트 추가 성공');
+            alert('코멘트 추가 성공');
             setComments([...comments, response.data]);
             setNewComment('');
         } catch (err) {
             console.error('error:', err);
+            alert('로그인을 해야 코멘트를 남길 수 있습니다.')
         }
     }
 
