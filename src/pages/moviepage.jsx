@@ -85,7 +85,7 @@ function Mmo() {
 
   const fetchData = async () => {
     try {
-      const response = await axios.get('https://port-0-minihackathon-12-lyec0qpi97716ac6.sel5.cloudtype.app/movie/list');
+      const response = await axios.get('https://hottomato.store/mainpage');
       setData(response.data);
       setSearchMovies(response.data);
       setLoading(false);
