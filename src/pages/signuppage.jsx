@@ -69,6 +69,7 @@ const ErrorMessage = styled.div`
 
 const Signuppage = () => {
   const [id, setId] = useState('');
+  const [nickname, setNickname] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [message, setMessage] = useState('');
@@ -111,6 +112,12 @@ const Signuppage = () => {
               placeholder="Username"
               value={id}
               onChange={(e) => setId(e.target.value)}
+          />
+          <Input
+              type="text"
+              placeholder="Nickname"
+              value={nickname}
+              onChange={(e) => setNickname(e.target.value)}
           />
         </div>
         <div className='input-group'>
